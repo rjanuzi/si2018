@@ -8,9 +8,10 @@ class Dir(Enum):
     D = 4
 
 class Puzzle:
-    def __init__(self):
+    def __init__(self, depth=0):
         pieces = list(range(9))
         random.shuffle(pieces)
+        self.depth = depth
         self.board = [[0,0,0],[0,0,0],[0,0,0]]
         k = 0
         for i in range(3):
@@ -34,13 +35,6 @@ class Puzzle:
                 if self.board[i][j] == piece:
                     return i,j
 
-    def equals(self, other):
-        for i in range(3):
-            for j in range(3):
-                if self.board[i][j] != other.board[i][j]:
-                    return False
-        return True
-
     def copy(self):
         new = Puzzle()
         for i in range(3):
@@ -52,12 +46,14 @@ class Puzzle:
         """Move to a direction (Dir Enum)"""
         freePosition = self.findPiece()
 
+        new = self.copy()
+        new.depth = self.depth+1
+
         # Free position can't be at left of the board
         if dir == Dir.L:
             if freePosition[1] == 0:
                 return None
             else:
-                new = self.copy()
                 temp = new.board[freePosition[0]][freePosition[1]-1]
                 new.board[freePosition[0]][freePosition[1]-1] = new.board[freePosition[0]][freePosition[1]]
                 new.board[freePosition[0]][freePosition[1]] = temp
@@ -67,7 +63,6 @@ class Puzzle:
             if freePosition[1] == 2:
                 return None
             else:
-                new = self.copy()
                 temp = new.board[freePosition[0]][freePosition[1]+1]
                 new.board[freePosition[0]][freePosition[1]+1] = new.board[freePosition[0]][freePosition[1]]
                 new.board[freePosition[0]][freePosition[1]] = temp
@@ -77,7 +72,6 @@ class Puzzle:
             if freePosition[0] == 0:
                 return None
             else:
-                new = self.copy()
                 temp = new.board[freePosition[0]-1][freePosition[1]]
                 new.board[freePosition[0]-1][freePosition[1]] = new.board[freePosition[0]][freePosition[1]]
                 new.board[freePosition[0]][freePosition[1]] = temp
@@ -87,7 +81,6 @@ class Puzzle:
             if freePosition[0] == 2:
                 return None
             else:
-                new = self.copy()
                 temp = new.board[freePosition[0]+1][freePosition[1]]
                 new.board[freePosition[0]+1][freePosition[1]] = new.board[freePosition[0]][freePosition[1]]
                 new.board[freePosition[0]][freePosition[1]] = temp
@@ -97,10 +90,42 @@ class Puzzle:
     def genChilds(self):
         return self.move(Dir.L), self.move(Dir.U), self.move(Dir.R), self.move(Dir.D)
 
+    def genSolution(self):
+        p = Puzzle()
+        p.board = [[0,1,2],[3,4,5],[6,7,8]]
+        return p
+
+    def qualityMes01(self):
+        """ The idea of this quality measurement is to count how much pieces are in the correct spot. """
+        s = genSolution()
+        piecesInTheSpot = 0
+        for i in range(3):
+            for j in range(3):
+                if s.board[i][j] == self.board[i][j]:
+                    piecesInTheSpot += 1
+        return piecesInTheSpot
+
     def __repr__(self):
+        # res = 'Depth: %s\n' % self.depth
         res = ''
         for i in range(3):
             res += '\n'
             for j in range(3):
                 res += str(self.board[i][j]) + ' '
         return res
+
+    def __eq__(self, other):
+        for i in range(3):
+            for j in range(3):
+                if self.board[i][j] != other.board[i][j]:
+                    return False
+        return True
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+# p = Puzzle()
+# childs = p.genChilds()
+#
+# print('Parent: %s' % p)
+# print('Childs: %s' % str(childs))
