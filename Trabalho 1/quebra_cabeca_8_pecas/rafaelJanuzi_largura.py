@@ -1,8 +1,8 @@
 from puzzle import Puzzle
-from llist import dllist
+# from llist import dllist
 
-ITER_LIMIT = 1000
-MEMORY_SIZE = 100
+ITER_LIMIT = 100000
+MEMORY_SIZE = 250
 
 # Execute a Width Search for the solution opening every possible path
 def widthSearch_v1():
@@ -15,6 +15,7 @@ def widthSearch_v1():
     nextNodes = dllist()
 
     iter = 0
+    # currentNode = nextNodes.pop()
     currentNode = nextNodes.popleft()
 
     while not currentNode.isDone() and iter <= ITER_LIMIT:
@@ -31,6 +32,7 @@ def widthSearch_v1():
             if c: # Ignore None (Invalid solutions)
                 nextNodes.append(c)
 
+        # currentNode = nextNodes.pop(0)
         currentNode = nextNodes.popleft()
 
     print('\nStarting node:%s' % p)
@@ -55,7 +57,7 @@ def widthSearch_v2():
             maxDepth = currentNode.depth
 
         if iter % 1000 == 0:
-            print('\nNodes inspected: %s\nWaiting nodes count: %s\nMax depth: %s' % (iter, len(nextNodes), maxDepth, len(memory)))
+            print('\nNodes inspected: %s\nWaiting nodes count: %s\nMax depth: %s' % (iter, len(nextNodes), maxDepth))
 
         if currentNode not in memory:
             memory.append(currentNode)
@@ -73,5 +75,5 @@ def widthSearch_v2():
     print('\nStarting node:%s' % p)
     print('Last node evaluated:%s' % currentNode)
 
-widthSearch_v1()
-# widthSearch_v2()
+# widthSearch_v1()
+widthSearch_v2()

@@ -53,7 +53,7 @@ def deepSearch_v2():
             maxDepth = currentNode.depth
 
         if iter % 1000 == 0:
-            print('\nNodes inspected: %s\nWaiting nodes count: %s\nMax depth: %s' % (iter, len(nextNodes), maxDepth, len(memory)))
+            print('\nNodes inspected: %s\nWaiting nodes count: %s\nMax depth: %s' % (iter, len(nextNodes), maxDepth))
 
         if currentNode not in memory:
             memory.append(currentNode)
