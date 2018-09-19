@@ -1,8 +1,8 @@
 from puzzle import Puzzle
 # from llist import dllist
 
-ITER_LIMIT = 100000
-MEMORY_SIZE = 250
+ITER_LIMIT = 1000000
+MEMORY_SIZE = 100
 
 # Execute a Width Search for the solution opening every possible path
 def widthSearch_v1():
