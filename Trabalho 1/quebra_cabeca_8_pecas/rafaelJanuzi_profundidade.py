@@ -1,4 +1,5 @@
 from puzzle import Puzzle
+from llist import dllist
 
 ITER_LIMIT = 100000
 MEMORY_SIZE = 100000
@@ -8,12 +9,12 @@ def deepSearch_v1():
     p = Puzzle()
     maxDepth = 0
 
-    # The list of nodes is accessed using FIFO rule (Deep Search), but using the
+    # The list of nodes is accessed using LIFO rule (Deep Search), using the
     # tail of the list to maintain insert/remove as O(1)
-    nextNodes = [p]
+    nextNodes = []
 
     iter = 0
-    currentNode = nextNodes.pop()
+    currentNode = p
 
     while not currentNode.isDone() and iter <= ITER_LIMIT:
         iter += 1
@@ -39,13 +40,13 @@ def deepSearch_v2():
     p = Puzzle()
     maxDepth = 0
 
-    # The list of nodes is accessed using FIFO rule (Deep Search), but using the
+    # The list of nodes is accessed using LIFO rule (Deep Search), using the
     # tail of the list to maintain insert/remove as O(1)
-    nextNodes = [p]
-    memory = [p]
+    nextNodes = []
+    memory = dllist()
 
     iter = 0
-    currentNode = nextNodes.pop()
+    currentNode = p
     while not currentNode.isDone() and iter <= ITER_LIMIT:
         iter += 1
 
@@ -58,7 +59,7 @@ def deepSearch_v2():
         if currentNode not in memory:
             memory.append(currentNode)
             if len(memory) > MEMORY_SIZE:
-                memory.pop(0)
+                memory.popleft()
 
         childs = currentNode.genChilds()
         for c in reversed(childs): # I want to check the first child first (Order: L, R, U, D)

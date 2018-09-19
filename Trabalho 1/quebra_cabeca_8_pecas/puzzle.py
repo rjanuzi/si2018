@@ -95,13 +95,16 @@ class Puzzle:
         p.board = [[0,1,2],[3,4,5],[6,7,8]]
         return p
 
+    def getSolutionBoard(self):
+        return [[0,1,2],[3,4,5],[6,7,8]]
+
     def qualityMes01(self):
         """ The idea of this quality measurement is to count how much pieces are in the correct spot. """
-        s = genSolution()
+        sBoard = self.getSolutionBoard()
         piecesInTheSpot = 0
         for i in range(3):
             for j in range(3):
-                if s.board[i][j] == self.board[i][j]:
+                if sBoard[i][j] == self.board[i][j]:
                     piecesInTheSpot += 1
         return piecesInTheSpot
 
@@ -123,9 +126,3 @@ class Puzzle:
 
     def __ne__(self, other):
         return not self.__eq__(other)
-
-# p = Puzzle()
-# childs = p.genChilds()
-#
-# print('Parent: %s' % p)
-# print('Childs: %s' % str(childs))
