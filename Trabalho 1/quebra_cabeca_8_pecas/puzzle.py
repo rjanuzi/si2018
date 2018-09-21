@@ -7,10 +7,20 @@ class Dir(Enum):
     U = 3
     D = 4
 
+def manhattanDist(a,b):
+    sum = 0
+    for i in range(len(a)):
+        sum += abs(a[i]-b[i])
+    return sum
+
 class Puzzle:
     def __init__(self, depth=0):
         pieces = list(range(9))
+
         random.shuffle(pieces)
+        while pieces == [[0,1,2],[3,4,5],[6,7,8]]: # Can't create a resolved board
+            random.shuffle(pieces)
+
         self.depth = depth
         self.board = [[0,0,0],[0,0,0],[0,0,0]]
         k = 0
@@ -98,15 +108,32 @@ class Puzzle:
     def getSolutionBoard(self):
         return [[0,1,2],[3,4,5],[6,7,8]]
 
-    def qualityMes01(self):
-        """ The idea of this quality measurement is to count how much pieces are in the correct spot. """
+    def getSolutionBoardPiecesPos(self):
+        return {0:[0,0],1:[0,1],2:[0,2],3:[1,0],4:[1,1],5:[1,2],6:[2,0],7:[2,1],8:[2,2],}
+
+    def h1(self):
+        """ The idea of this heuristic is to calculate how much pieces are not in the right place."""
         sBoard = self.getSolutionBoard()
-        piecesInTheSpot = 0
+        piecesOutOfTheSpot = 0
         for i in range(3):
             for j in range(3):
-                if sBoard[i][j] == self.board[i][j]:
-                    piecesInTheSpot += 1
-        return piecesInTheSpot
+                if sBoard[i][j] != self.board[i][j]:
+                    piecesOutOfTheSpot += 1
+        return piecesOutOfTheSpot
+
+    def h2(self):
+        """ The idea is to sum the manhattan distance of each piece to the correct position."""
+        h = 0
+        correctPositions = self.getSolutionBoardPiecesPos()
+        for i in range(3):
+            for j in range(3):
+                h += manhattanDist(correctPositions[self.board[i][j]], [i,j])
+
+        return h
+
+    def h3(self):
+        """The idea is to multiply the other two heuristics."""
+        return self.h1()*self.h2()
 
     def __repr__(self):
         # res = 'Depth: %s\n' % self.depth
