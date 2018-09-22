@@ -33,40 +33,40 @@ def testTemplate(fun, guloso=False):
                 success += 1.0
 
         if not guloso:
-            print('\n=======================================\nIterations Limit: %s\nSuccess rate: %s\nAverage exec. time: %s\nAverage waiting nodes: %s\nAverage max depth: %s\n=======================================' % \
-            (iteration, (success/100.0), (totalTime/100.0), (totalWaitingNodes/100.0), (totalMaxDepth/100.0)))
+            print('\n=======================================\nIterations Limit: %s\nSuccess rate: %s %%\nAverage exec. time: %s\nAverage waiting nodes: %s\nAverage max depth: %s\n=======================================' % \
+            (iteration, success, (totalTime/100.0), (totalWaitingNodes/100.0), (totalMaxDepth/100.0)))
         else:
-            print('\n=======================================\nIterations Limit: %s\nSuccess rate: %s\nAverage exec. time: %s\nAverage min H(): %s\nAverage max depth: %s\n=======================================' % \
-            (iteration, (success/100.0), (totalTime/100.0), (totalWaitingNodes/100.0), (totalMaxDepth/100.0)))
+            print('\n=======================================\nIterations Limit: %s\nSuccess rate: %s %%\nAverage exec. time: %s\nAverage min H(): %s\nAverage max depth: %s\n=======================================' % \
+            (iteration, success, (totalTime/100.0), (totalWaitingNodes/100.0), (totalMaxDepth/100.0)))
 
 ##################################################################################################
 #                                   EXECUTION
 ##################################################################################################
 
-# print('\nTesting deepSearch_v1()')
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-# testTemplate(fun=deepSearch_v1)
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-#
-# print('\nTesting deepSearch_v2()')
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-# testTemplate(fun=deepSearch_v2)
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-#
-# print('\nTesting widthSearch_v1()')
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-# testTemplate(fun=widthSearch_v1)
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-#
-# print('\nTesting widthSearch_v2()')
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-# testTemplate(fun=widthSearch_v2)
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-#
-# print('\nTesting greedySearch_h1_v1()')
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-# testTemplate(fun=greedySearch_h1_v1, guloso=True)
-# print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+print('\nTesting deepSearch_v1()')
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+testTemplate(fun=deepSearch_v1)
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+
+print('\nTesting deepSearch_v2()')
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+testTemplate(fun=deepSearch_v2)
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+
+print('\nTesting widthSearch_v1()')
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+testTemplate(fun=widthSearch_v1)
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+
+print('\nTesting widthSearch_v2()')
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+testTemplate(fun=widthSearch_v2)
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+
+print('\nTesting greedySearch_h1_v1()')
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+testTemplate(fun=greedySearch_h1_v1, guloso=True)
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 
 print('\nTesting greedySearch_h1_v2()')
 print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')

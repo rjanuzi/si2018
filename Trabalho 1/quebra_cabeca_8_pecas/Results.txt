@@ -1,0 +1,184 @@
+[Command: python -u 'C:\Users\rjanuzi\Desktop\si2018\Trabalho 1\quebra_cabeca_8_pecas\experiments.py']
+Testing deepSearch_v1()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 0.0 %
+Average exec. time: 0.11991600036621093
+Average waiting nodes: 1501.94
+Average max depth: 1000.0
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 0.0 %
+Average exec. time: 1.071799008846283
+Average waiting nodes: 15001.87
+Average max depth: 10000.0
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Testing deepSearch_v2()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 1.0 %
+Average exec. time: 1.0345940041542052
+Average waiting nodes: 785.25
+Average max depth: 991.86
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 1.0 %
+Average exec. time: 11.000941066741943
+Average waiting nodes: 7770.54
+Average max depth: 9840.07
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Testing widthSearch_v1()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 0.0 %
+Average exec. time: 0.11406199932098389
+Average waiting nodes: 1849.71
+Average max depth: 6.9
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 0.0 %
+Average exec. time: 1.1181320071220398
+Average waiting nodes: 18448.42
+Average max depth: 9.0
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Testing widthSearch_v2()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 0.0 %
+Average exec. time: 0.9351800060272217
+Average waiting nodes: 1168.52
+Average max depth: 10.87
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 0.0 %
+Average exec. time: 11.298538074493408
+Average waiting nodes: 17505.87
+Average max depth: 13.34
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Testing greedySearch_h1_v1()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 0.0 %
+Average exec. time: 0.12735999822616578
+Average min H(): 7.92
+Average max depth: 1000.0
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 0.0 %
+Average exec. time: 1.2729580092430115
+Average min H(): 8.16
+Average max depth: 10000.0
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Testing greedySearch_h1_v2()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 37.0 %
+Average exec. time: 0.862776005268097
+Average min H(): 2.11
+Average max depth: 832.78
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 55.0 %
+Average exec. time: 5.735268037319184
+Average min H(): 2.0
+Average max depth: 5036.03
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Testing greedySearch_h2_v1()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 0.0 %
+Average exec. time: 0.1789680004119873
+Average min H(): 9.98
+Average max depth: 1000.0
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 0.0 %
+Average exec. time: 1.727310013771057
+Average min H(): 10.0
+Average max depth: 10000.0
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Testing greedySearch_h2_v2()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 9.0 %
+Average exec. time: 1.0159920048713684
+Average min H(): 3.52
+Average max depth: 955.32
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 26.0 %
+Average exec. time: 9.309036061763763
+Average min H(): 2.78
+Average max depth: 7899.41
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Testing greedySearch_h3_v1()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 0.0 %
+Average exec. time: 0.19782399892807007
+Average min H(): 10.0
+Average max depth: 1000.0
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 0.0 %
+Average exec. time: 1.9804660153388978
+Average min H(): 10.0
+Average max depth: 10000.0
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Testing greedySearch_h3_v2()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+=======================================
+Iterations Limit: 1000
+Success rate: 22.0 %
+Average exec. time: 0.9162520027160644
+Average min H(): 5.32
+Average max depth: 847.28
+=======================================
+=======================================
+Iterations Limit: 10000
+Success rate: 26.0 %
+Average exec. time: 8.953542060852051
+Average min H(): 4.9
+Average max depth: 7483.88
+=======================================
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+Done.
+[Finished in 5897.298s]
