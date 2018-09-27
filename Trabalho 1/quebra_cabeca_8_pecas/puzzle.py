@@ -47,9 +47,8 @@ class Puzzle:
 
     def copy(self):
         new = Puzzle()
-        for i in range(3):
-            for j in range(3):
-                new.board[i][j] = self.board[i][j]
+        new.board = self.board.copy()
+        new.depth = self.depth
         return new
 
     def move(self, dir):
