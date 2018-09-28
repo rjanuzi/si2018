@@ -8,7 +8,7 @@ class State:
         """ Counts the number of queens that attack each other. """
         attacks = 0
 
-        # Count in vertical
+        # Count in horizontal
         for i in range(8):
             for j in range(i+1, 8):
                 if self.board[i] == self.board[j]:
@@ -27,6 +27,31 @@ class State:
                     attacks += 1
 
         return attacks
+
+    def calcFitness(self):
+        fitness = 0
+
+        # For each queen count non attacking queens
+        for i in range(8):
+            # Count not attacking queens in horizontal
+            for j in range(i+1, 8):
+                if self.board[i] != self.board[j]:
+                    fitness += 1
+
+            # Count not attacking queens in diagonals
+            acc = 0
+            for j in range(i+1, 8):
+                acc += 1
+                supPos = self.board[i]-acc # Next queen can't be at this position in the ascendent diagonal
+                infPos = self.board[i]+acc # Next queen can't be at this position in the descendent diagonal
+                if supPos > 0 and self.board[j] == supPos:
+                    fitness -= 1
+                if infPos < 8 and self.board[j] == infPos:
+                    fitness -= 1
+
+        self.fitness = fitness
+
+        return fitness
 
     def genNeighborsStates(self):
         neighborsLst = []
@@ -58,7 +83,7 @@ class State:
                     res += ' 1 '
                 else:
                     res += ' 0 '
-        return res+'\nh() = %s'%self.h()
+        return res+'\nh() = %s\nfitness() = %s' % (self.h(), self.calcFitness())
 
     def __eq__(self, other):
         return self.board==other.board
