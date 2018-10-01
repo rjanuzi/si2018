@@ -2,7 +2,8 @@ from random import random
 
 class State:
     def __init__(self, depth=0):
-        self.board = [int(num*random()*8) for num in [1]*8]
+        self.board = [int(random()*8) for num in [1]*8]
+        self.fitness = -1
 
     def h(self):
         """ Counts the number of queens that attack each other. """
@@ -29,6 +30,11 @@ class State:
         return attacks
 
     def calcFitness(self):
+
+        # If was already calculated
+        if self.fitness > 0:
+            return self.fitness
+
         fitness = 0
 
         # For each queen count non attacking queens
@@ -84,6 +90,7 @@ class State:
                 else:
                     res += ' 0 '
         return res+'\nh() = %s\nfitness() = %s' % (self.h(), self.calcFitness())
+        # return '%s' % self.calcFitness()
 
     def __eq__(self, other):
         return self.board==other.board
