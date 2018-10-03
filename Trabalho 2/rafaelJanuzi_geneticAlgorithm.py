@@ -20,7 +20,7 @@ def mutation(individual, mutationRate=0.1):
         individual.board[int(random()*len(individual.board))] = int(random()*8)
         return True
 
-def crossover(individual1, individual2):
+def crossover(individual1, individual2, mutationRate=MUTATION_RATE):
     cutIndex = int(random()*len(individual1.board))
     child1 = State()
     child2 = State()
@@ -28,8 +28,8 @@ def crossover(individual1, individual2):
     child1.board = individual1.board[:cutIndex]+individual2.board[cutIndex:]
     child2.board = individual2.board[:cutIndex]+individual1.board[cutIndex:]
 
-    mutation(child1, mutationRate=MUTATION_RATE)
-    mutation(child2, mutationRate=MUTATION_RATE)
+    mutation(child1, mutationRate=mutationRate)
+    mutation(child2, mutationRate=mutationRate)
 
     return [child1, child2]
 
@@ -59,9 +59,9 @@ def save(pop, howMany):
     saved = []
 
     for i in range(howMany):
-        if i > len(pop):
+        if len(pop) <= 0:
             return saved
-        fitnessArray = [i.calcFitness() for i in pop]
+        fitnessArray = [ind.calcFitness() for ind in pop]
         totalFitness = sum(fitnessArray)
         fitnessProportion = [f/totalFitness for f in fitnessArray]
         acc = 0
@@ -76,21 +76,23 @@ def save(pop, howMany):
 
     return saved
 
-def geneticAlgorithm(verbose=True, maxIterations=MAX_ITERATIONS, pop=genPop(size=POP_SIZE), elitismRate=ELITISM_RATE):
+def geneticAlgorithm(verbose=True, maxIterations=MAX_ITERATIONS, popSize=POP_SIZE,
+    elitismRate=ELITISM_RATE, crossOverPercentage=CROSSOVER_PERCENTAGE, mutationRate=MUTATION_RATE):
+
+    currentEpoch = 1
+    pop = genPop(popSize)
 
     for i in range(maxIterations):
-        newPop = []
-
         if verbose:
             print('\nStarting epoch %s' % i)
 
-        individualsToCrossOver = selection(pop=pop, percentage=CROSSOVER_PERCENTAGE)
+        individualsToCrossOver = selection(pop=pop, percentage=crossOverPercentage)
 
         # Crossovers
         while len(individualsToCrossOver) >= 2:
             parent1 = individualsToCrossOver.pop(int(random()*len(individualsToCrossOver)))
             parent2 = individualsToCrossOver.pop(int(random()*len(individualsToCrossOver)))
-            childs = crossover(parent1, parent2)
+            childs = crossover(parent1, parent2, mutationRate=mutationRate)
             pop.append(childs[0])
             pop.append(childs[1])
 
@@ -98,22 +100,74 @@ def geneticAlgorithm(verbose=True, maxIterations=MAX_ITERATIONS, pop=genPop(size
             print('Pop size after crossover: %s' % len(pop))
 
         # Sort to facilitate
-        pop.sort(key=lambda x: x.calcFitness(), reverse=True)
+        pop.sort(key=lambda x: x.calcFitness(), reverse=False)
+
+        # Check if theres a solution
+        if pop[-1].h() == 0:
+            break
 
         if verbose:
-            print('Top fitness: %s' % pop[0].calcFitness())
+            print('Top fitness: %s' % pop[-1].calcFitness())
 
         # Save the elit
-        howManyForElitism = int(elitismRate*POP_SIZE)
+        howManyForElitism = int(elitismRate*popSize)
+        savedByElitism = []
         for j in range(howManyForElitism):
-            newPop.append(pop.pop(j))
+            savedByElitism.append(pop.pop())
+
+        if verbose:
+            print('Saved by elitism: %s (%s)' % (howManyForElitism, len(savedByElitism)))
 
         # Save the rest based on a proportional roulet
-        newPop += save(pop=pop, howMany=POP_SIZE-howManyForElitism)
-        pop = newPop
+        savedByLuck = save(pop=pop, howMany=popSize-howManyForElitism)
+        if verbose:
+            print('Saved by luck (based on fitness): %s (%s)' % ((popSize-howManyForElitism), len(savedByLuck)))
 
-    pop.sort(key=lambda x: x.calcFitness(), reverse=True)
-    print('\n\nEvolution end.\nTop individual: %s' % pop[0])
+        pop = savedByElitism + savedByLuck
+
+        if verbose:
+            print('Total saved: %s' % len(pop))
+
+        currentEpoch += 1
+
+    if verbose:
+        pop.sort(key=lambda x: x.calcFitness(), reverse=False)
+        print('\n\nEvolution end. (Epochs: %s)\nTop individual: %s' % (currentEpoch, pop[-1]))
+
+    if pop[-1].h() == 0:
+        return True
+    return False
 
 # Tests
-geneticAlgorithm()
+# geneticAlgorithm(verbose=True, popSize=10, maxIterations=10, crossOverPercentage=0.1, mutationRate=0.01, elitismRate=0.2)
+
+popSizeVals = [10, 100]
+maxIterationsVals = [100, 1000]
+crossOverPercentageVals = [0.5, 1.0]
+mutationRateVals = [0.05, 0.1, 0.3, 0.5]
+elitismRateVals = [0.0, 0.1, 0.3, 0.5]
+
+for s in popSizeVals:
+    for maxI in maxIterationsVals:
+        for c in crossOverPercentageVals:
+            for m in mutationRateVals:
+                for e in elitismRateVals:
+                    successCount = 0
+                    for i in range(100):
+                        if geneticAlgorithm(verbose=False, popSize=s, maxIterations=maxI,
+                            crossOverPercentage=c, mutationRate=m, elitismRate=e):
+                            successCount += 1
+                    print('PopSize: %s, Max Iterations: %s, CrossOverPercentage: %s, mutationRate: %s, elitismRate: %s = %s%%' % (s,maxI,c,m,e,successCount))
+
+# def findRandomly():
+#     for i in range(1000000):
+#         p = State()
+#         if p.h() == 0:
+#             return True
+#     return False
+#
+# successCount = 0
+# for i in range(100):
+#     if findRandomly():
+#         successCount += 1
+# print('Success rate randomly: %s%%' % successCount)
