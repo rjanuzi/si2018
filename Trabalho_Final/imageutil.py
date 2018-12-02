@@ -34,25 +34,20 @@ def loadPreparedImgsData(imgNameList, resize=True):
 
     return imgs, newHeight, newWidth
 
-def imgToTensor(imgData):
-    print(imgData.shape)
-    newShape = imgData.reshape((channels*newHeight*newWidth))
-    print(newShape.shape)
-
-    # imgTensor = tf.convert_to_tensor(imgData)
-    # print(imgTensor)
-
 def plotImg(imgData):
     plt.figure()
     plt.imshow(imgData)
     plt.grid(False)
     plt.show()
 
-# imgs, height, width = loadPreparedImgsData(['ISIC_0026236', 'ISIC_0027573'], resize=True)
-# imgToTensor(imgData)
-# print(height)
-# print(width)
-# print(imgs[0].shape)
-# print(imgs[1].shape)
-# plotImg(imgs[0])
-# plotImg(imgs[1])
+def plotImgList(imgList, lines, cols):
+    f, a = plt.subplots(lines, cols, sharex=True, figsize=(cols, lines), squeeze=False)
+    k = 0
+    for i in range(cols):
+        for j in range(lines):
+            a[j][i].imshow(imgList[k])
+            k += 1
+
+    f.show()
+    plt.draw()
+    plt.show()

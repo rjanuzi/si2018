@@ -60,5 +60,5 @@ def testModel(testIns, testOuts, model=None, imgLimit=None):
 trainIns, trainOuts, labels = dataset.loadTrainData()
 testIns, testOuts = dataset.loadTestData()
 
-trainModel(trainIns, trainOuts, imgLimit=2000)
-testModel(testIns, testOuts, model, imgLimit=1000)
+# trainModel(trainIns, trainOuts, imgLimit=2000)
+# testModel(testIns, testOuts, model, imgLimit=1000)
