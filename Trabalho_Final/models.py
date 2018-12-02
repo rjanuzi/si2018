@@ -4,7 +4,7 @@ from tensorflow import keras
 FULLY_CONNECTED_PATH = 'models/fully_connected.h5'
 
 def compileFullyConnectedModel(model):
-    model.compile(optimizer=tf.train.AdamOptimizer(),
+    model.compile(optimizer='adam',
                     loss='sparse_categorical_crossentropy',
                     metrics=['accuracy'])
 
