@@ -13,11 +13,12 @@ import models
 
 checkpoint_path = "test_1_checkpoints/cp.ckpt"
 
-def trainModel(save=True):
-    # Load input references
-    trainIns, trainOuts, testIns, testOuts, labels = preprocessing.getTrainingSets()
+def trainModel(trainIns, trainOuts, save=True, imgLimit=None):
 
-    print('Loading training data')
+    if imgLimit:
+        trainIns = trainIns[:imgLimit]
+        trainOuts = trainOuts[:imgLimit]
+
     train_imgs = img.loadJpegImgs(trainIns)
     train_imgs = np.asarray(train_imgs)
     train_imgs = train_imgs/255
@@ -37,9 +38,11 @@ def trainModel(save=True):
     if save:
         model.save(models.FULLY_CONNECTED_PATH)
 
-def testModel(model=models.restoreFullyConnectedModel()):
-    print('Validating model')
-    trainIns, trainOuts, testIns, testOuts, labels = preprocessing.getTrainingSets()
+def testModel(testIns, testOuts, model=models.restoreFullyConnectedModel(), imgLimit=None):
+
+    if imgLimit:
+        testIns = testIns[:imgLimit]
+        testOuts = testOuts[:imgLimit]
 
     test_imgs = img.loadJpegImgs(testIns)
     test_imgs = np.asarray(test_imgs)
@@ -49,5 +52,8 @@ def testModel(model=models.restoreFullyConnectedModel()):
     loss, acc = model.evaluate(test_imgs, test_outputs)
     print("Model accuracy (Test data): {:5.2f}%".format(100*acc))
 
-trainModel()
-# testModel()
+# Load data
+trainIns, trainOuts, testIns, testOuts, labels = preprocessing.getTrainingSets()
+
+trainModel(trainIns, trainOuts, imgLimit=400)
+testModel(testIns, testOuts, imgLimit=100)
