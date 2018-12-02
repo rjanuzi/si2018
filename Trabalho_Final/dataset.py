@@ -124,6 +124,29 @@ def getDatasetImageTypes():
 
     return types
 
+def getDatasetImageDiagnosis():
+    index = loadIndex()
+
+    types = []
+
+    for k,v in index.items():
+        vType = v['diagnosis']
+        if vType not in types:
+            types.append(vType)
+
+    return types
+
+def getDatasetImageBenignMalignant():
+    index = loadIndex()
+    types = []
+
+    for k,v in index.items():
+        vType = v['benign_malignant']
+        if vType not in types:
+            types.append(vType)
+
+    return types
+
 def getDatasetConfirmationTypes():
     index = loadIndex()
 
@@ -160,6 +183,18 @@ def getDatasetSizes():
 
     return sizes
 
+def getMelanocyticOptions():
+    index = loadIndex()
+
+    types = []
+
+    for k,v in index.items():
+        vType = v['melanocytic']
+        if vType not in types:
+            types.append(vType)
+
+    return types
+
 def getDetailsByName(name):
     index = loadIndex()
 
@@ -169,4 +204,11 @@ def getDetailsByName(name):
 
     return None
 
-downloadImgs(20000)
+def getImgPath(imgName):
+    return '%s/%s.jpg' % (DATASET_LOCAL_PATH, imgName)
+
+def loadImage(imgName):
+    file = open(getImgPath(imgName), 'rb')
+    content = file.read()
+    file.close()
+    return content

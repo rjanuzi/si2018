@@ -4,8 +4,8 @@ import numpy as np
 from numpy.random import rand
 
 def plot_bar_chart(groups, groups_vals):
-    plt.xticks(range(len(groups)), groups, rotation=90)
-    thisplot = plt.bar(range(len(groups_vals)), groups_vals, color="blue")
+    plt.xticks(range(len(groups)), groups, rotation=0)
+    thisplot = plt.bar(range(len(groups_vals)), groups_vals, color="gray")
     plt.show()
 
 # def plot_scatter(x_data, y_data, x_label="", y_label="", title="", color = "r", yscale_log=False):
@@ -17,12 +17,25 @@ def plot_bar_chart(groups, groups_vals):
 #     plt.show()
 # plot_scatter(range(10), range(10))
 
-def plotClassesProportion():
+def plotClassesProportion(size_x=600, size_y=450):
     index = dataset.loadIndex()
 
     classes = {}
     for v in index.values():
+
+        # From the specific size
+        if v['size_x'] != size_x and v['size_y'] != size_y:
+            continue
+
+        if v['type'] != 'dermoscopic':
+            continue
+
+        # Confirmed
+        if v['diagnosis_confirm_type'] == None:
+            continue
+
         vClass = '%s_%s' % (v['diagnosis'], v['benign_malignant'])
+
         if vClass not in classes.keys():
             classes[vClass] = 1
         else:
@@ -47,5 +60,6 @@ def plotSizesProportion():
     sizes_vals = [sizes[s] for s in sizes_array]
     plot_bar_chart(sizes_array, sizes_vals)
 
-plotClassesProportion()
+# plotClassesProportion(600, 450)
+# plotClassesProportion(3024, 2016)
 # plotSizesProportion()
