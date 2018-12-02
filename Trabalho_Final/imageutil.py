@@ -4,23 +4,46 @@ import tensorflow as tf
 
 import matplotlib.pyplot as plt
 
-def loadJpegImg(imgName):
-    return tf.Session().run(tf.image.decode_jpeg(dataset.loadImage(imgName), channels=3))
+# Original size = 450 x 600
 
-def loadJpegImgs(imgNameList):
-    ses = tf.Session()
-    imgs = []
+newHeight = 150
+newWidth = 200
+newSizeTensor = tf.constant([newHeight, newWidth])
+
+def loadJpegImgTensor(imgName):
+    return tf.image.decode_jpeg(dataset.loadImage(imgName), channels=3)
+
+def loadTensorData(imgTensor):
+    return tf.Session().run(imgTensor)
+
+def resizeImg(imgTensor):
+    imgTensor = imgTensor/255
+    return loadTensorData(tf.image.resize_images(imgTensor, newSizeTensor, align_corners=True, preserve_aspect_ratio=True))
+
+def loadPreparedImgsData(imgNameList, resize=True):
     imgsToLoad = len(imgNameList)
+    imgs = []
     for i in range(imgsToLoad):
-        imgs.append(ses.run(tf.image.decode_jpeg(dataset.loadImage(imgNameList[i]), channels=3)))
+        if resize:
+            imgs.append(resizeImg(loadJpegImgTensor(imgNameList[i])))
+        else:
+            imgs.append(loadTensorData(loadJpegImgTensor(imgNameList[i])))
 
         if i % 50 == 0:
             print('Loading imgs: %02f %s' % ( (i/imgsToLoad)*100., '%') )
 
-    return imgs
+    return imgs, newHeight, newWidth
 
 def plotImg(imgData):
     plt.figure()
     plt.imshow(imgData)
     plt.grid(False)
     plt.show()
+
+# imgs, height, width = loadPreparedImgsData(['ISIC_0026236', 'ISIC_0027573'], resize=True)
+# print(height)
+# print(width)
+# print(imgs[0].shape)
+# print(imgs[1].shape)
+# plotImg(imgs[0])
+# plotImg(imgs[1])
