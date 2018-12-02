@@ -1,6 +1,6 @@
 # TensorFlow and tf.keras
-import tensorflow as tf
-from tensorflow import keras
+# import tensorflow as tf
+# from tensorflow import keras
 
 # Helper libraries
 import numpy as np
@@ -52,8 +52,8 @@ def testModel(testIns, testOuts, model=models.restoreFullyConnectedModel(), imgL
     loss, acc = model.evaluate(test_imgs, test_outputs)
     print("Model accuracy (Test data): {:5.2f}%".format(100*acc))
 
-# Load data
-trainIns, trainOuts, testIns, testOuts, labels = preprocessing.getTrainingSets()
+trainIns, trainOuts, labels = dataset.loadTrainData()
+testIns, testOuts = dataset.loadTestData()
 
-trainModel(trainIns, trainOuts, imgLimit=400)
-testModel(testIns, testOuts, imgLimit=100)
+# trainModel(trainIns, trainOuts, imgLimit=400)
+# testModel(testIns, testOuts, imgLimit=100)

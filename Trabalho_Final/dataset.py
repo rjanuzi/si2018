@@ -212,3 +212,29 @@ def loadImage(imgName):
     content = file.read()
     file.close()
     return content
+
+def saveTrainData(train_ins, train_outs, labels):
+    obj = {'_in':train_ins, '_out':train_outs, 'labels':labels}
+    file = open('dataset/traindata.json', 'wt')
+    file.write(json.dumps(obj))
+    file.close()
+
+def loadTrainData():
+    file = open('dataset/traindata.json', 'rt')
+    content = file.read()
+    file.close()
+    loaded = json.loads(content)
+    return loaded['_in'], loaded['_out'], loaded['labels']
+
+def saveTestData(test_ins, test_outs):
+    obj = {'_in':test_ins, '_out':test_outs}
+    file = open('dataset/testdata.json', 'wt')
+    file.write(json.dumps(obj))
+    file.close()
+
+def loadTestData():
+    file = open('dataset/testdata.json', 'rt')
+    content = file.read()
+    file.close()
+    loaded = json.loads(content)
+    return loaded['_in'], loaded['_out']

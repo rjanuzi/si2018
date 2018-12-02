@@ -42,6 +42,8 @@ def transformIndexToInOutArrays(index):
 
     return _in, _out, labels
 
+# Example:
+#trainIns, trainOuts, testIns, testOuts, labels = preprocessing.getTrainingSets()
 def getTrainingSets(testProportion=.2):
     index = filterIndex()
     _in,_out,labels = transformIndexToInOutArrays(index)
