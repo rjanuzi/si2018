@@ -1,13 +1,13 @@
 import dataset
-
 import tensorflow as tf
-
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Original size = 450 x 600
 
 newHeight = 150
 newWidth = 200
+channels = 3
 newSizeTensor = tf.constant([newHeight, newWidth])
 
 def loadJpegImgTensor(imgName):
@@ -34,6 +34,14 @@ def loadPreparedImgsData(imgNameList, resize=True):
 
     return imgs, newHeight, newWidth
 
+def imgToTensor(imgData):
+    print(imgData.shape)
+    newShape = imgData.reshape((channels*newHeight*newWidth))
+    print(newShape.shape)
+
+    # imgTensor = tf.convert_to_tensor(imgData)
+    # print(imgTensor)
+
 def plotImg(imgData):
     plt.figure()
     plt.imshow(imgData)
@@ -41,6 +49,7 @@ def plotImg(imgData):
     plt.show()
 
 # imgs, height, width = loadPreparedImgsData(['ISIC_0026236', 'ISIC_0027573'], resize=True)
+# imgToTensor(imgData)
 # print(height)
 # print(width)
 # print(imgs[0].shape)
