@@ -18,10 +18,10 @@ def trainModel(save=True):
     trainIns, trainOuts, testIns, testOuts, labels = preprocessing.getTrainingSets()
 
     print('Loading training data')
-    train_imgs = img.loadJpegImgs(trainIns[:1])
+    train_imgs = img.loadJpegImgs(trainIns)
     train_imgs = np.asarray(train_imgs)
     train_imgs = train_imgs/255
-    train_outputs = np.asarray(trainOuts[:1])
+    train_outputs = np.asarray(trainOuts)
 
     model = models.createFullyConnectedModel()
 
