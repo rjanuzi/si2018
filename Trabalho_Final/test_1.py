@@ -32,7 +32,7 @@ def trainModel(trainIns, trainOuts, save=True, imgLimit=None):
                                                      verbose=1, period=5)
 
     # Train
-    model.fit(train_imgs, train_outputs, epochs=20, callbacks = [cp_callback])
+    model.fit(train_imgs, train_outputs, epochs=10, callbacks = [cp_callback])
 
     # Saving model
     if save:
