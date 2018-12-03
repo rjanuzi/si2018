@@ -1,26 +1,3 @@
-""" Generative Adversarial Networks (GAN).
-
-Using generative adversarial networks (GAN) to generate digit images from a
-noise distribution.
-
-References:
-    - Generative adversarial nets. I Goodfellow, J Pouget-Abadie, M Mirza,
-    B Xu, D Warde-Farley, S Ozair, Y. Bengio. Advances in neural information
-    processing systems, 2672-2680.
-    - Understanding the difficulty of training deep feedforward neural networks.
-    X Glorot, Y Bengio. Aistats 9, 249-256
-
-Links:
-    - [GAN Paper](https://arxiv.org/pdf/1406.2661.pdf).
-    - [MNIST Dataset](http://yann.lecun.com/exdb/mnist/).
-    - [Xavier Glorot Init](www.cs.cmu.edu/~bhiksha/courses/deeplearning/Fall.../AISTATS2010_Glorot.pdf).
-
-Author: Aymeric Damien
-Project: https://github.com/aymericdamien/TensorFlow-Examples/
-"""
-
-from __future__ import division, print_function, absolute_import
-
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -28,20 +5,16 @@ import tensorflow as tf
 import imageutil
 import dataset
 
-# Import MNIST data
-# from tensorflow.examples.tutorials.mnist import input_data
-# mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-
 # Training Params
-num_steps = 1000
-batch_size = 500
+num_steps = 3000
+batch_size = 300
 learning_rate = 0.0002
 
 # Network Params
 image_dim = 90000 # 150*200*3 pixels
 gen_hidden_dim = 256
 disc_hidden_dim = 256
-noise_dim = 200 # Noise data points
+noise_dim = 100 # Noise data points
 
 def reshapeImgTo1D(imgData):
     return imgData.reshape((90000))
